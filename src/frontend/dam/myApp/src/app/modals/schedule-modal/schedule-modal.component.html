@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Programar Horario</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label position="floating">Hora de Inicio</ion-label>
+    <ion-datetime
+      displayFormat="HH:mm"
+      presentation="time"
+      [(ngModel)]="startTime"
+      minuteValues="0,15,30,45"> <!-- Opcional: Restringe los minutos a cuartos de hora -->
+    </ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label position="floating">Hora de Fin</ion-label>
+    <ion-datetime
+      displayFormat="HH:mm"
+      presentation="time" 
+      [(ngModel)]="endTime"
+      minuteValues="0,15,30,45"> <!-- Opcional: Restringe los minutos a cuartos de hora -->
+    </ion-datetime>
+  </ion-item>
+  <ion-button expand="block" (click)="schedule()">Programar</ion-button>
+</ion-content>

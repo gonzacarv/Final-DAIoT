@@ -1,0 +1,24 @@
+{
+  "name": "daw_project",
+  "version": "1.0.0",
+  "description": "Node.js backend for smart home control",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Agustin Bassi, Brian Ducca",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "errorhandler": "^1.5.1",
+    "express": "^4.17.1",
+    "express-promise-router": "^4.1.0",
+    "helmet": "^4.6.0",
+    "jsonwebtoken": "^8.5.1",
+    "mqtt": "^4.2.6",
+    "mysql": "^2.18.1"
+  }
+}

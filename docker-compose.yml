@@ -1,0 +1,76 @@
+version: '3.7'
+
+services:
+  ionic-ui:
+    build:
+      context: ./src/frontend/dam/myApp
+      dockerfile: Dockerfile
+    ports:
+      - "8100:8100"
+    container_name: ionic-ui
+    volumes:
+      - ./src/frontend/dam/myApp:/src/frontend/dam/myApp
+      - /src/frontend/dam/myApp/node_modules
+    command: ionic serve --external
+    networks:
+      - app-fullstack-net
+
+  mysql-server:
+    image: mysql:5.7
+    hostname: mysql-server
+    environment:
+      MYSQL_ROOT_PASSWORD: userpass
+    container_name: mysql-server
+    volumes:
+      - ./db/dumps:/docker-entrypoint-initdb.d
+      - ./db/data:/var/lib/mysql
+    networks:
+      - app-fullstack-net
+    ports:
+      - "3306:3306"
+
+  mysql-admin:
+    image: phpmyadmin/phpmyadmin
+    environment: 
+      PMA_HOST: mysql-server
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: userpass
+    container_name: mysql-admin
+    networks:
+      - app-fullstack-net
+    depends_on:
+      - mysql-server
+    ports:
+      - "8001:80"
+
+  node-backend:
+    build:
+      context: ./src/backend
+      dockerfile: Dockerfile
+    container_name: node-backend
+    ports: 
+      - "8000:3000"
+    command: nodemon /home/node/app/index.js
+    depends_on:
+      - mysql-server
+    networks:
+      - app-fullstack-net
+
+  mosquitto-broker:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto-broker
+    volumes:
+      - ./mosquitto/config:/mosquitto/config
+      - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/log:/mosquitto/log
+      - ./mosquitto/certs:/mosquitto/certs
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+    networks:
+      - app-fullstack-net
+
+networks:
+  app-fullstack-net:
+    driver: bridge
+

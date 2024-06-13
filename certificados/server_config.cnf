@@ -1,0 +1,24 @@
+
+[ req ]
+distinguished_name = req_distinguished_name
+x509_extensions = v3_ca
+req_extensions = v3_req
+prompt = no
+
+[ req_distinguished_name ]
+C = AR
+ST = CABA
+L = CABA
+O = FiUBA
+OU = Server
+CN = 192.168.0.172
+
+[ v3_ca ]
+subjectAltName = @alt_names
+
+[ v3_req ]
+subjectAltName = @alt_names
+
+[ alt_names ]
+IP.1 = 192.168.0.172
+

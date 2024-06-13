@@ -1,0 +1,26 @@
+<ul style="overflow-y: scroll">
+  <li *ngFor="let consumo of consumos" [appCustomHighlight]="consumo.estado">
+    <h2>{{ consumo.nombre }}</h2>
+    <!-- Ion-toggle para cambiar el estado -->
+    <ion-item>
+      <ion-label>Estado</ion-label>
+      <ion-toggle [(ngModel)]="consumo.estado" (ionChange)="toggleConsumo(consumo.id, consumo.estado)"></ion-toggle>
+    </ion-item>
+    <!-- Ion-range para cambiar la intensidad -->
+    <ion-item>
+      <ion-label>Intensidad</ion-label>
+      <ion-range min="0" max="100" step="1" [(ngModel)]="consumo.intensidad" (ionChange)="changeIntensidad(consumo.id, consumo.intensidad)">
+        <ion-icon slot="start" name="sunny"></ion-icon>
+        <ion-icon slot="end" name="sunny"></ion-icon>
+      </ion-range>
+    </ion-item>
+    <!-- Botón "Ver Detalles" -->
+    <ion-button (click)="navigateToDetails(consumo.id)">Ver Detalles</ion-button>
+    <ion-button (click)="openScheduleModal(consumo.id)">Programar Horario</ion-button>
+
+    <!-- Detalles expandibles -->
+    <div *ngIf="consumo.expanded">
+      <!-- Mostrar detalles del consumo aquí -->
+    </div>
+  </li>
+</ul>

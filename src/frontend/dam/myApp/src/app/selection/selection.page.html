@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-title>Hola {{ username | uppercase}}! Bienvenido al sistema domotico</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Mensaje de bienvenida -->
+  <ion-text>
+      <h2>Elija una opcion</h2>
+  </ion-text>
+  <ion-button expand="block" (click)="navigateTo('/home')">Consumos</ion-button>
+  <ion-button expand="block" (click)="navigateTo('/groups')">Grupos</ion-button>
+  <ion-button expand="block" (click)="logout()" color="danger">Salir</ion-button>
+</ion-content>
