@@ -5,16 +5,17 @@ Repositorio del proyecto final de la materia DAIoT de la CEIoT de la FiUBA.
 
 ![Logo Domotico](src/frontend/dam/myApp/src/assets/AppLogo.png)
 
-Este proyecto consta de la programación de un dispositivo **Espressif ESP32 C3**, y de un *backend* actualizado que originalmente fue presentado en la materia DDA 2 (DAM). Además de las modificaciones al backend, se agregó al proyecto un contenedor con un *broker MQTT* (Eclipse Mosquitto) en el servidor *on premises*. El proyecto completo se levanta con *docker-compose*, y demuestra la interacción bidireccional del dispositivo con el broker y a su vez la interaccion del backend actualizado con el broker y la base de datos (MySQL). Todas las conexiones al broker MQTT se realizan con certificados TLS en el puerto 8883.
+Este proyecto consta de la programación de un dispositivo **Espressif ESP32 C3**, y de un *backend* actualizado que originalmente fue presentado en la materia DdA 2 (DAM). Además de las modificaciones al backend, se agregó al proyecto un contenedor con un *broker MQTT* (Eclipse Mosquitto) para el servidor *on premises*. El proyecto completo se inicia con *docker-compose*, y demuestra la interacción bidireccional del dispositivo con el broker y a su vez la interaccion del backend actualizado con el broker y la base de datos (MySQL). Todas las conexiones al broker MQTT se realizan con certificados TLS en el puerto 8883.
 
 ### Características del Sistema
 
 ![ESP32 C3 Pinout](https://pbs.twimg.com/media/EyXzMAvWEAEnZka.png)
 
-- **ESP32 C3 DevkitC 02**: El prototipo se conecta a Wi-Fi, para posteriormente conectarse al broker MQTT en el puerto 8883 (TLS). Se subscribe al tópico que le corresponde, además, integra un pulsador en *GPIO9* que alterna en el sistema el consumo con el numero de ID correspondiente. El dispositivo muestra por la salida serial el cambio de estado cuando el mismo se realiza desde el frontend.
+- **ESP32 C3 DevkitC 02**: El prototipo se conecta a Wi-Fi, para posteriormente conectarse al broker MQTT en el puerto 8883 (TLS). Se subscribe al tópico que le corresponde, además, integra un pulsador en *GPIO9* que alterna en el sistema el consumo con el numero de ID correspondiente. El dispositivo muestra por la salida serial el cambio de estado cuando se aprieta el pulsador, o cuando el cambio se realiza desde el frontend.
 - **Broker MQTT**: Integra un *broker MQTT* (Eclipse Mosquitto) configurado para conexión segura (TLS) mediante el puerto 8883. 
-- **Base de datos**: Además de la base de datos MySQL 5.7, se incluye phpMyAdmin.
-- **Gestión de Usuarios**: Control y acceso seguro mediante una base de datos de usuarios.
+- **Base de datos**: Se realiza dump de datos de prueba la primera vez que se inicia el sistema. Además de la base de datos MySQL 5.7, se incluye phpMyAdmin.
+- **Frontend**: Incluye acceso mediante login de ejemplo. También sección con el listado de los consumos donde se puede cambiar su estado (switch) y su intensidad (slider). 
+
 
 #### Cambios en el Backend
 - **MQTT en el Backend**: Integración del cliente MQTT en el backend para interactuar con el broker Mosquitto.
