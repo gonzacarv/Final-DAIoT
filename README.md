@@ -1,26 +1,20 @@
 # Desarrollo de Aplicaciones para Internet de las Cosas
-Repositorio con el proyecto final de la materia DAIoT de la CEIoT de la FiUBA.
+Repositorio del proyecto final de la materia DAIoT de la CEIoT de la FiUBA.
 
 ## Descripción del Proyecto
 
 ![Logo Domotico](src/frontend/dam/myApp/src/assets/AppLogo.png)
 
-Este proyecto consta de una aplicación de un sistema domótico desarrollado con Angular e Ionic que permite controlar dispositivos electrónicos del hogar, ya sea el estado (encendido/apagado) como en intensidad (de 0% a 100%). Permite a los usuarios visualizar, controlar y programar (mediante un modal) dispositivos. También ver los detalles de los grupos.
+Este proyecto consta de la programación de un dispositivo **Espressif ESP32 C3**, y de un *backend* actualizado que originalmente fue presentado en la materia DDA 2 (DAM). Además de las modificaciones al backend, se agregó al proyecto un contenedor con un *broker MQTT* (Eclipse Mosquitto) en el servidor *on premises*. El proyecto completo se levanta con *docker-compose*, y demuestra la interacción bidireccional del dispositivo con el broker y a su vez la interaccion del backend actualizado con el broker y la base de datos (MySQL). Todas las conexiones al broker MQTT se realizan con certificados TLS en el puerto 8883.
 
 ### Características del Sistema
-- **Visualización y Control**: Los usuarios pueden listar consumos o grupos de dispositivos. Pueden controlar tanto el estado de encendido como la intensidad de 0% a 100%. Tanto los consumos como los grupos tienen opciones para ver detalles.
-- **Programación de Dispositivos**: Interfaz para programar los horarios de operación usando modales de Ionic.
-- **Gestión de Usuarios**: Control y acceso seguro mediante una base de datos de usuarios.
 
-### Actualizaciones y Cambios Realizados
-#### Integración del Broker Mosquitto
-- **Broker MQTT**: Integración de un broker Mosquitto configurado con TLS para asegurar la comunicación.
-- **Docker Compose**: Actualización del `docker-compose.yml` para incluir el servicio del broker Mosquitto.
-  
-#### Programación del Dispositivo ESP32-C3
-- **Control del Dispositivo**: El ESP32-C3 se programa para conectarse al broker Mosquitto mediante TLS y publicar/recibir mensajes MQTT.
-- **Interacción con un Switch**: El dispositivo ESP32-C3 se programa para cambiar el estado de un consumo específico al presionar un switch conectado al pin GPIO9.
-- **Mensajes por Consola**: El dispositivo ESP32-C3 muestra en la consola el estado del consumo al presionar el switch.
+![ESP32 C3 Pinout](https://pbs.twimg.com/media/EyXzMAvWEAEnZka.png)
+
+- **ESP32 C3 DevkitC 02**: El prototipo se conecta a Wi-Fi, para posteriormente conectarse al broker MQTT en el puerto 8883 (TLS). Se subscribe al tópico que le corresponde, además, integra un pulsador en *GPIO9* que alterna en el sistema el consumo con el numero de ID correspondiente. El dispositivo muestra por la salida serial el cambio de estado cuando el mismo se realiza desde el frontend.
+- **Broker MQTT**: Integra un *broker MQTT* (Eclipse Mosquitto) configurado para conexión segura (TLS) mediante el puerto 8883. 
+- **Base de datos**: Además de la base de datos MySQL 5.7, se incluye phpMyAdmin.
+- **Gestión de Usuarios**: Control y acceso seguro mediante una base de datos de usuarios.
 
 #### Cambios en el Backend
 - **MQTT en el Backend**: Integración del cliente MQTT en el backend para interactuar con el broker Mosquitto.
@@ -33,24 +27,17 @@ Este proyecto consta de una aplicación de un sistema domótico desarrollado con
 - **Orquestación**: Docker
 - **Broker MQTT**: Mosquitto
 
-### Cumplimiento de Requisitos
-- **Directivas Estructurales**: Implementadas con `ngIf` y `ngFor` en varios componentes del sistema para renderizado condicional y listas dinámicas.
-- **Directiva de Atributo**: `CustomHighlightDirective` en `/src/app/directives` para cambiar estilos dinámicamente basados en el estado del dispositivo. En este caso se muestran de color verde los consumos que se encuentran encendidos.
-- **Pipe Custom**: `MayusculasPipe` en `/src/app/pipes` para transformar textos a mayúsculas. Se usa para colocar el nombre de usuario en mayúscula en el mensaje de bienvenida.
-- **Servicio para la API**: `ApiService` en `/src/app/services` para manejar todas las interacciones con el backend.
-- **API en Express**: Backend en Node.js que maneja la lógica de negocio y la comunicación con la base de datos MySQL.
-
 ## Configuración y Ejecución con Docker
 Se utiliza Docker para facilitar la configuración y ejecución del proyecto. En la raíz se encuentra el `docker-compose.yml` utilizado para levantar los servicios necesarios.
 
 ### Instrucciones
-1. **Clonar el repositorio**: `git clone https://github.com/tu_usuario/tu_repositorio.git`
+1. **Clonar el repositorio**: `git clone https://github.com/gonzacarv/Final-DAIoT.git`
 2. **Crear archivo de entorno**: `cp .env.example .env`
 3. **Instalar dependencias**: `npm install`
 4. **Ejecutar la aplicación**: `docker-compose up --build`
 
 ### Usuarios de Prueba
-Inicia con 2 usuarios creados para login:
+En frontend se inicia sesión con 2 usuarios creados para login:
 
 **Username:** pedro
 
@@ -63,5 +50,8 @@ Inicia con 2 usuarios creados para login:
 **Password:** 1234
 
 ## Contacto
+
+**Docentes:** Mariano Bustos - Leopoldo Zimperz
+
 **Alumno:** Gonzalo Carvallo - gonzacarv@gmail.com
 

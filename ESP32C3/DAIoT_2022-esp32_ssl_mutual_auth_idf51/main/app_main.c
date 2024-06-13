@@ -31,7 +31,7 @@
 #define BUTTON_PIN GPIO_NUM_9
 
 // Define the consumption ID to monitor
-#define CONSUMPTION_ID "5"
+#define CONSUMPTION_ID "3"
 
 static const char *TAG = "Domotico-DAIoT";
 
